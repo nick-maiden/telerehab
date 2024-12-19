@@ -1,69 +1,24 @@
-## Overview
+## telerehab
+telerehab is designed to assist healthcare professionals (physiotherapists, occupational therapists, etc) when conducting a remote session with a patient. Using the mobile app, a patient is able to record themselves completing exercises prescribed by their clinician. Pose estimation is then run on this video data in real time and results may be viewed afterwards by the patient or their clinician.
 
-Remote Rehab is an innovative platform designed to seamlessly integrate into clinical workflows and facilitate remote physiotherapy assessment and monitoring to aid in patient recovery.
+The alternative way for clinicians to conduct remote sessions currently is via a video call, however telerehab presents several advantages over this method. Firstly, the recording of exercises by a patient and review by a clinician may be completed asynchronously. Most importantly however the utility of the data captured through pose estimation is far greater for a clinician, allowing them to do such things as view joint angles to determine range of motion through exercises. This is simply not possible with video data alone.
 
-##### React Native Mobile Application for clients
-At its core lies a React Native mobile application tailored for clients, allowing them to record exercise sessions. The app utilizes the Vision Camera to capture frames, which are then processed by the Blaze Pose model to generate key points reflecting the client's movements. These key points, along with the frames, are transmitted in real-time to a Django backend and stored securely in the cloud.
-
-Link to andriod APK: https://drive.google.com/file/d/1D7pSLvnZvoN8es7lt0nZURYFqTUozZ5f/view?usp=share_link
-
-##### Web Application for clinicians
-Clinicians can then leverage a web application to access the stored data, enabling precise evaluation of posture, alignment, and range of motion. This functionality supports the creation of targeted treatment plans, ensuring personalized care for each client.
-
-# Installation Instructions
-
-First clone and navigate into Github Repository
-
+## How to run
+1. Install Docker and ensure it is running.
+2. Download Expo App on smartphone.
+3. Run the following commands:
 ```
-git clone https://github.com/JawadBakhtiari/connectedHealthPoseApp.git
-cd connectedHealthPoseApp/
+git clone git@github.com:nick-maiden/telerehab.git
+cd telerehab
+docker compose up
 ```
-
-# Running using Docker
-
-1. get ConnectionCode (local IP address):
-
+4. Open mobile app.
+5. Enter connection code (local IP address) and backend port number (8000 by default) inside mobile app.
+6. Press record button again to clip recording, session id and session clip should be printed in the back-end.
+7. Access web app via:
 ```
-./getip
+http://(your-local-ip-address):8000/data/visualise2D/
 ```
 
-2. run docker:
-
-```
-docker-compose up
-```
-
-delete old docker build after making changes:
-
-```
-docker-compose down -v --rmi 'all'
-```
-
-# Inside React Native App : Patient
-
-1. Download Expo App on smartphone
-2. Follow link on browser: (Connection code is your local IP address not docker IP address)
-
-```
-exp://ConnectionCode:19000
-```
-
-3. Enter connection code (local IP-address) and back-end port inside app.
-
-```
-ConnectionCode:8000
-```
-
-4. Press record button and allow permission for recording for the first time, small delay before recording starts.
-
-5. Press record button again to clip recording, session id and session clip should be printed in the back-end.
-
-# Inside Web App : Staff
-
-1. Access web app via:
-
-```
-http://ConnectionCode:8000/data/visualise2D/
-```
-
-2. Use session id and clip num to view pose skeleton and graph analysis
+## Future work
+The first goal for telerehab moving forward is to validate results collected by the system to ensure that they meet clinical standards in terms of accuracy. Following this, the aim is to have the mobile app provide live feedback on exercise quality to the patient whilst they are completing the exercise, to ensure that they are performing their exercises correctly.
