@@ -14,7 +14,7 @@ docker compose up
 ```
 4. Open mobile app.
 5. Enter connection code (local IP address) and backend port number (8000 by default) inside mobile app.
-6. Press record button again to clip recording, session id and session clip should be printed in the back-end.
+6. Use record button in mobile app to start and stop exercise recordings.
 7. Access web app via:
 ```
 http://(your-local-ip-address):8000/data/visualise2D/
